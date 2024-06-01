@@ -40,6 +40,11 @@ function CodyHistory:show()
   vim.wo[self.win].concealcursor = "n"
 
   vim.bo[self.bufnr].filetype = self.opts.filetype or "markdown.cody_history"
+
+  local last_line = vim.api.nvim_buf_line_count(self.bufnr)
+  local last_column = #vim.api.nvim_buf_get_lines(self.bufnr, last_line - 1, last_line, false)[1]
+  vim.api.nvim_win_set_cursor(self.bufnr, {last_line, last_column})
+
 end
 
 function CodyHistory:delete()
